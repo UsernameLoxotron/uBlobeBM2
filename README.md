@@ -8,7 +8,7 @@ Go to
 `chrome-extension://cjpalhdlnbpafiamejdnhcphjbkeiagm/advanced-settings.html`
 
 Find `userResourcesLocation` and change it from `unset` to 
-`https://usernameloxotron.github.io/uBlobeBM2/`
+`https://usernameloxotron.github.io/uBlobeBM2/blob.js`
 
 Go to 
 `chrome-extension://cjpalhdlnbpafiamejdnhcphjbkeiagm/1p-filters.html`
