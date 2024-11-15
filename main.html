@@ -145,66 +145,42 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            let updatedItemText;
             const itemList = document.getElementById('itemList');
             const newItemInput = document.getElementById('newItemInput');
             const addButton = document.getElementById('addItemButton');
             const overlay = document.getElementById('overlay');
-            //Code
-            //
-            //
-            //
-
-            let bookmarksLoaded = false;
 
             function loadBookmarks() {
-                if (localStorage.getItem('items')) {
-                    // Load from local storage
-                    const storedItems = JSON.parse(localStorage.getItem('items'));
-                    storedItems.forEach(item => {
-                        addItemToList(item.display, item.item);
+            const storedItems = localStorage.getItem('items');
+
+            if (storedItems !== null) {
+                const parsedItems = JSON.parse(storedItems);
+                parsedItems.forEach(item => {
+                    addItemToList(item.display, item.item, item.isRemovable);
+                });
+            } else {
+                fetch('bookmark.json')
+                    .then(response => response.json())
+                    .then(data => {
+                        const items = [];
+                        for (const bookmarkName in data) {
+                            addItemToList(bookmarkName, data[bookmarkName].url, false);
+                            items.push({
+                                display: bookmarkName,
+                                item: data[bookmarkName].url,
+                                isRemovable: false 
+                            });
+                        }
+                        localStorage.setItem('items', JSON.stringify(items));
+                    })
+                    .catch(error => {
+                        console.error('Error loading bookmark.json:', error);
+                        localStorage.setItem('items', JSON.stringify([]));
                     });
-                    bookmarksLoaded = true;
-                } else { // <-- Corrected: This "else" block was missing
-                    // If not in local storage, fetch from JSON file
-                    fetch('bookmark.json')
-                        .then(response => response.json())
-                        .then(data => {
-                            const items = [];
-
-                            for (const bookmarkName in data) {
-                                addItemToList(bookmarkName, data[bookmarkName].url);
-                                items.push({ display: bookmarkName, item: data[bookmarkName].url });
-                            }
-
-                            localStorage.setItem('items', JSON.stringify(items));
-                            bookmarksLoaded = true;
-                        })
-                        .catch(error => console.error('Error loading bookmark.json:', error));
                 }
             }
 
-
-            //
-            //
-            //
-            addButton.addEventListener('click', () => {
-                const displayValue = prompt('How do you want the bookmarklet to be called?');
-                if (displayValue === null) {
-                    return;
-                }
-
-                const itemValue = newItemInput.value.trim();
-                if (!itemValue) {
-                    return;
-                }
-
-                addItemToList(displayValue, itemValue);
-                saveItemsToLocalStorage();
-                newItemInput.value = '';
-            });
-
-            function addItemToList(displayValue, itemValue) {
+            function addItemToList(displayValue, itemValue, isRemovable = true) {
                 const newItem = document.createElement('li');
                 newItem.className = 'item';
 
@@ -213,17 +189,23 @@
                 itemButton.textContent = displayValue;
                 itemButton.title = itemValue;
                 itemButton.addEventListener('click', () => {
-                    const selectedItemValue = itemButton.title;
-                    runScript(selectedItemValue);
+                    runScript(itemButton.title);
                 });
 
-                const removeButton = document.createElement('button');
-                removeButton.className = 'remove-button';
-                removeButton.textContent = 'Remove';
-                removeButton.addEventListener('click', () => {
-                    itemList.removeChild(newItem);
-                    saveItemsToLocalStorage();
-                });
+                newItem.appendChild(itemButton);
+
+
+                if (isRemovable) { 
+                    const removeButton = document.createElement('button');
+                    removeButton.className = 'remove-button';
+                    removeButton.textContent = 'Remove';
+                    removeButton.addEventListener('click', () => {
+                        itemList.removeChild(newItem);
+                        saveItemsToLocalStorage();
+                    });
+                    newItem.appendChild(removeButton);
+                }
+
 
                 const editDisplayButton = document.createElement('button');
                 editDisplayButton.className = 'edit-display-button';
@@ -235,35 +217,56 @@
                         saveItemsToLocalStorage();
                     }
                 });
-
-
-                newItem.appendChild(itemButton);
-                newItem.appendChild(removeButton);
                 newItem.appendChild(editDisplayButton);
+
 
                 itemList.appendChild(newItem);
             }
 
+
             function saveItemsToLocalStorage() {
                 const items = Array.from(document.querySelectorAll('.item-button')).map(button => {
+                    const itemElement = button.parentNode; 
+                    const isRemovable = itemElement.querySelector('.remove-button') !== null;
+
                     return {
                         display: button.textContent,
                         item: button.title,
+                        isRemovable: isRemovable
                     };
                 });
                 localStorage.setItem('items', JSON.stringify(items));
             }
 
+
             function runScript(selectedItemValue) {
                 overlay.style.display = 'flex';
-		    
+
                 setTimeout(() => {
-			window.parent.postMessage("run:" + selectedItemValue, '*');
+                    window.parent.postMessage("run:" + selectedItemValue, '*');
                 }, 500);
             }
 
-            loadBookmarks(); // Call the function to load bookmarks
+            addButton.addEventListener('click', () => {
+                const displayValue = prompt('How do you want the bookmarklet to be called?');
+                if (displayValue === null) {
+                    return;
+                }
+
+                const itemValue = newItemInput.value.trim();
+                if (!itemValue) {
+                    return;
+                }
+
+                addItemToList(displayValue, itemValue); 
+                saveItemsToLocalStorage();
+                newItemInput.value = '';
+            });
+
+
+            loadBookmarks();
         });
+
     </script>
 </body>
 </html>
