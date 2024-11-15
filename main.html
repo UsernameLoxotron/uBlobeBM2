@@ -45,19 +45,19 @@
             align-items: center;
         }
 
-        #newItemInput {
-            width: calc(100% + 590px);
-            padding: 5px;
-            border-radius: 5px;
-            margin-left: -600px;
-        }
+	#newItemInput {
+   	    width: calc(100% + 590px);
+  	    padding: 5px;
+	    border-radius: 5px;
+	    margin-left: -600px;
+	}
 
-        @media (max-width: 769px) {
-            #newItemInput {
-                width: auto;
-                margin-left: 0;
-            }
-        }
+	@media (max-width: 769px) {
+    		#newItemInput {
+        		width: auto;
+        		margin-left: 0;
+    			}
+		}
 
         .item-list-container {
             max-height: calc(100vh - 75px);
@@ -128,11 +128,11 @@
 <body>
     <div class="header">
         <div id="logo-container">
-            <img id="logo" src="https://usernameloxotron.github.io/uBlobeBM2/silly.ico" alt="Logo">
+            <img id="logo" src="https://raw.githubusercontent.com/UsernameLoxotron/uBlobeBM2/refs/heads/main/silly.ico" alt="Logo">
             <span id="itemListText">BlobeBM2: Bookmarklet Runner</span>
         </div>
         <div id="itemInputContainer">
-            <input type="text" id="newItemInput" placeholder="Enter the bookmarklet here" required>
+            <input type="text" id="newItemInput" placeholder="Enter the bookmarklet here">
             <button id="addItemButton">Add Bookmarklet</button>
         </div>
     </div>
@@ -143,58 +143,31 @@
         <ul id="itemList" class="item-list"></ul>
     </div>
 
-    <script type="module">
+    <script>
         document.addEventListener('DOMContentLoaded', () => {
+            let updatedItemText;
             const itemList = document.getElementById('itemList');
             const newItemInput = document.getElementById('newItemInput');
             const addButton = document.getElementById('addItemButton');
             const overlay = document.getElementById('overlay');
 
-            // Fetch bookmarklets from bookmark.json
-            async function fetchBookmarklets() {
-                try {
-                    const response = await fetch('./bookmark.json');
-                    if (!response.ok) throw new Error(`Failed to fetch: ${response.status}`);
-                    const bookmarklets = await response.json();
-
-                    // Loop through the fetched bookmarklets and add to list if not already in localStorage
-                    for (const name in bookmarklets) {
-                        const bookmark = bookmarklets[name];
-                        if (!isItemInLocalStorage(name, bookmark.url)) {
-                            addItemToList(name, bookmark.url, bookmark.editable, false); // false means non-editable (from JSON)
-                        }
-                    }
-                } catch (error) {
-                    console.error('Error loading bookmarklets:', error);
-                }
-            }
-
-            // Add bookmarklet from input field (manual addition)
             addButton.addEventListener('click', () => {
-                const displayValue = prompt('Type the name of the bookmarklet: ');
-                if (displayValue === null) return;
-
-                const itemValue = newItemInput.value.trim();
-                if (!itemValue) return;
-
-                if (isItemInLocalStorage(displayValue, itemValue)) {
-                    alert("This bookmarklet already exists!");
+                const displayValue = prompt('How do you want the bookmarklet to be called?');
+                if (displayValue === null) {
                     return;
                 }
 
-                addItemToList(displayValue, itemValue, true, true); // true means editable (manual addition)
+                const itemValue = newItemInput.value.trim();
+                if (!itemValue) {
+                    return;
+                }
+
+                addItemToList(displayValue, itemValue);
                 saveItemsToLocalStorage();
                 newItemInput.value = '';
             });
 
-            // Function to check if the bookmarklet already exists in localStorage
-            function isItemInLocalStorage(displayValue, itemValue) {
-                const existingItems = getItemsFromLocalStorage();
-                return existingItems.some(item => item.display === displayValue && item.item === itemValue);
-            }
-
-            // Function to add a bookmarklet to the list
-            function addItemToList(displayValue, itemValue, isEditable, isNew) {
+            function addItemToList(displayValue, itemValue) {
                 const newItem = document.createElement('li');
                 newItem.className = 'item';
 
@@ -207,42 +180,44 @@
                     runScript(selectedItemValue);
                 });
 
-                newItem.appendChild(itemButton);
+                const removeButton = document.createElement('button');
+                removeButton.className = 'remove-button';
+                removeButton.textContent = 'Remove';
+                removeButton.addEventListener('click', () => {
+                    itemList.removeChild(newItem);
+                    saveItemsToLocalStorage();
+                });
 
-                // Only add edit/remove buttons if this bookmarklet is editable
-                if (isEditable) {
-                    const removeButton = document.createElement('button');
-                    removeButton.className = 'remove-button';
-                    removeButton.textContent = 'Remove';
-                    removeButton.addEventListener('click', () => {
-                        itemList.removeChild(newItem);
+                const editDisplayButton = document.createElement('button');
+                editDisplayButton.className = 'edit-display-button';
+                editDisplayButton.textContent = 'Edit Name';
+                editDisplayButton.addEventListener('click', () => {
+                    const newDisplayValue = prompt('Enter the new name:', itemButton.textContent);
+                    if (newDisplayValue !== null) {
+                        itemButton.textContent = newDisplayValue;
                         saveItemsToLocalStorage();
-                    });
+                    }
+                });
 
-                    const editDisplayButton = document.createElement('button');
-                    editDisplayButton.className = 'edit-display-button';
-                    editDisplayButton.textContent = 'Edit Name';
-                    editDisplayButton.addEventListener('click', () => {
-                        const newDisplayValue = prompt('Enter the new name:', itemButton.textContent);
-                        if (newDisplayValue !== null) {
-                            itemButton.textContent = newDisplayValue;
-                            saveItemsToLocalStorage();
-                        }
-                    });
+                const editItemButton = document.createElement('button');
+                editItemButton.className = 'edit-item-button';
+                editItemButton.textContent = 'Edit Bookmarklet';
+                editItemButton.addEventListener('click', () => {
+                    const newItemValue = prompt('Enter the new bookmarklet code:', itemButton.title);
+                    if (newItemValue !== null) {
+                        itemButton.title = newItemValue;
+                        saveItemsToLocalStorage();
+                    }
+                });
 
-                    newItem.appendChild(removeButton);
-                    newItem.appendChild(editDisplayButton);
-                }
+                newItem.appendChild(itemButton);
+                newItem.appendChild(removeButton);
+                newItem.appendChild(editDisplayButton);
+                newItem.appendChild(editItemButton);
 
                 itemList.appendChild(newItem);
-
-                // If the bookmarklet is new (manually added), save it to localStorage
-                if (isNew) {
-                    saveItemsToLocalStorage();
-                }
             }
 
-            // Function to save items to localStorage
             function saveItemsToLocalStorage() {
                 const items = Array.from(document.querySelectorAll('.item-button')).map(button => {
                     return {
@@ -253,29 +228,21 @@
                 localStorage.setItem('items', JSON.stringify(items));
             }
 
-            // Function to get items from localStorage
-            function getItemsFromLocalStorage() {
-                const storedItems = localStorage.getItem('items');
-                return storedItems ? JSON.parse(storedItems) : [];
-            }
-
-            // Function to run the bookmarklet script
             function runScript(selectedItemValue) {
                 overlay.style.display = 'flex';
-
+		    
                 setTimeout(() => {
-                    window.parent.postMessage("run:" + selectedItemValue, '*');
+			window.parent.postMessage("run:" + selectedItemValue, '*');
                 }, 500);
             }
 
-            // Load saved items from localStorage and display them
-            const storedItems = getItemsFromLocalStorage();
-            storedItems.forEach(item => {
-                addItemToList(item.display, item.item, true, false); // All localStorage items are editable
-            });
-
-            // Fetch bookmarklets from bookmark.json (non-editable items)
-            fetchBookmarklets();
+            const storedItems = localStorage.getItem('items');
+            if (storedItems) {
+                const parsedItems = JSON.parse(storedItems);
+                parsedItems.forEach(item => {
+                    addItemToList(item.display, item.item);
+                });
+            }
         });
     </script>
 </body>
