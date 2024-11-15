@@ -4,8 +4,5 @@
   },
   "EDpuzzle answers": {
     "url": "javascript:void%20function(){javascript:fetch(%22https://cdn.jsdelivr.net/gh/ading2210/edpuzzle-answers%40latest/script.js%22).then(a=%3Ea.text()).then(r=%3Eeval(r))}();"
-  },
-  "test1": {
-    "url": "111222333"
   }
 }
