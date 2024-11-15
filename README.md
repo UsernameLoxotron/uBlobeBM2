@@ -1,4 +1,8 @@
 # Welcome to uBlobeBM (BlobeBM uBlock Edition)!
+
+###THIS IS THE FORK OF uBlobM with bookmarks pre-installed and new design(kinda)
+
+
 uBlobeBM is a tool that can run bookmarklets using uBlock Origin. It's very useful if bookmarklets don't work on your device or if they are blocked by your administrator.
 
 ### How to setup uBlobeBM
