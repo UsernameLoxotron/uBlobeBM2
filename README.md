@@ -1,4 +1,4 @@
-# **THIS IS THE FORK OF uBlobM with bookmarks pre-installed and ~~a new design~~(in the future)**
+# **THIS IS THE FORK OF uBlobeBM with bookmarks pre-installed and ~~a new design~~(in the future)**
 
 # Welcome to uBlobeBM (BlobeBM uBlock Edition)!
 
