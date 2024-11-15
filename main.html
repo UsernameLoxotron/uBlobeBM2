@@ -201,7 +201,7 @@
                 const itemButton = document.createElement('button');
                 itemButton.className = 'item-button';
                 itemButton.textContent = displayValue;
-                itemButton.title = "";
+                itemButton.title = itemValue;
                 itemButton.addEventListener('click', () => {
                     const selectedItemValue = itemButton.title;
                     runScript(selectedItemValue);
