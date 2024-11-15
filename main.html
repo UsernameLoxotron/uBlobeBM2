@@ -150,7 +150,44 @@
             const newItemInput = document.getElementById('newItemInput');
             const addButton = document.getElementById('addItemButton');
             const overlay = document.getElementById('overlay');
+            //Code
+            //
+            //
+            //
 
+            let bookmarksLoaded = false;
+
+            function loadBookmarks() {
+                if (localStorage.getItem('items')) {
+                    // Load from local storage
+                    const storedItems = JSON.parse(localStorage.getItem('items'));
+                    storedItems.forEach(item => {
+                        addItemToList(item.display, item.item);
+                    });
+                    bookmarksLoaded = true;
+                } else { // <-- Corrected: This "else" block was missing
+                    // If not in local storage, fetch from JSON file
+                    fetch('bookmark.json')
+                        .then(response => response.json())
+                        .then(data => {
+                            const items = [];
+
+                            for (const bookmarkName in data) {
+                                addItemToList(bookmarkName, data[bookmarkName].url);
+                                items.push({ display: bookmarkName, item: data[bookmarkName].url });
+                            }
+
+                            localStorage.setItem('items', JSON.stringify(items));
+                            bookmarksLoaded = true;
+                        })
+                        .catch(error => console.error('Error loading bookmark.json:', error));
+                }
+            }
+
+
+            //
+            //
+            //
             addButton.addEventListener('click', () => {
                 const displayValue = prompt('How do you want the bookmarklet to be called?');
                 if (displayValue === null) {
@@ -199,21 +236,10 @@
                     }
                 });
 
-                const editItemButton = document.createElement('button');
-                editItemButton.className = 'edit-item-button';
-                editItemButton.textContent = 'Edit Bookmarklet';
-                editItemButton.addEventListener('click', () => {
-                    const newItemValue = prompt('Enter the new bookmarklet code:', itemButton.title);
-                    if (newItemValue !== null) {
-                        itemButton.title = newItemValue;
-                        saveItemsToLocalStorage();
-                    }
-                });
 
                 newItem.appendChild(itemButton);
                 newItem.appendChild(removeButton);
                 newItem.appendChild(editDisplayButton);
-                newItem.appendChild(editItemButton);
 
                 itemList.appendChild(newItem);
             }
@@ -236,13 +262,7 @@
                 }, 500);
             }
 
-            const storedItems = localStorage.getItem('items');
-            if (storedItems) {
-                const parsedItems = JSON.parse(storedItems);
-                parsedItems.forEach(item => {
-                    addItemToList(item.display, item.item);
-                });
-            }
+            loadBookmarks(); // Call the function to load bookmarks
         });
     </script>
 </body>
