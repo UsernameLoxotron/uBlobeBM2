@@ -8,7 +8,7 @@ However, uBlobeBM2 have more new functions, for example:
 +Easier shortcuts/setup
 ```
 
-### How to setup uBlobeBM
+### How to setup uBlobeBM2
 Make sure that you have uBlock Origin installed on your computer. If you don't, download it [here](https://chromewebstore.google.com/detail/ublock-origin/cjpalhdlnbpafiamejdnhcphjbkeiagm).
 
 Go to
@@ -26,6 +26,6 @@ Add the following line of code:
 ```
 
 
-### How to use uBlobeBM
+### How to use uBlobeBM2
 Hold _CTRL + Shift + ~_(Next to the ESC)
 Or _CTRL + `_
