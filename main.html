@@ -41,39 +41,34 @@
 
         #itemInputContainer {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
+            flex-direction: column; /* Stack items vertically */
+            align-items: stretch;   /* Stretch items to full width of container */
             padding: 10px;
         }
 
-        #itemInputContainer > button { /* Target only the buttons */
-            margin-right: 10px;
+        #itemInputContainer > input { /* Style the input (placeholder) */
+            margin-bottom: 10px; /* Add space below the input */
         }
 
-        #itemInputContainer > button:last-child { /* Remove margin from last button */
-            margin-right: 0;
+        #itemInputContainer > div { /* Container for the buttons */
+            display: flex;
+            justify-content: space-between; /* Align buttons left and right */
         }
 
+        /* Media query – probably not needed now, but kept for example */
         @media (max-width: 769px) {
-            #itemInputContainer {
-                flex-direction: column;
-                align-items: flex-start; 
+            /* You can remove these styles if you want the same behavior on small screens */
+            #itemInputContainer > div { /* Button container on small screens */
+                flex-direction: column; /* Stack buttons vertically */
             }
 
-            #itemInputContainer > button { /* Target buttons in media query */
-                margin-right: 0;
-                margin-bottom: 5px;
-            }
-            #itemInputContainer > button:last-child { /* Remove bottom margin */
-            margin-bottom: 0;
+            #itemInputContainer > div > button {
+            width: 100%; /* Make buttons full width */
+            margin-bottom: 5px;
             }
 
-            #itemInputContainer > input { /* Target input in media query */
-                width: 100%; /* Input full width on small screens */
-                margin-bottom: 5px; /* Adjust bottom margin as needed */
-            }
-            #itemInputContainer > *:last-child {
-                margin-bottom: 0; /* Remove bottom margin from last element */
+            #itemInputContainer > div > *:last-child {
+                margin-bottom: 0;
             }
         }
 
@@ -92,13 +87,6 @@
             cursor: pointer;
             margin-left: 10px; 
         }
-
-	    @media (max-width: 769px) {
-    		#newItemInput {
-        		width: auto;
-        		margin-left: 0;
-    			}
-		}
 
         .item-list-container {
             max-height: calc(100vh - 75px);
@@ -174,8 +162,10 @@
         </div>
         <div id="itemInputContainer">
             <input type="text" id="newItemInput" placeholder="Enter the bookmarklet here">
-            <button id="addItemButton">Add Bookmarklet</button>
-            <button id="clearItemsButton">Reset Bookmarklets</button>
+            <div>  <!-- Add this div to wrap the buttons -->
+                <button id="addItemButton">Add Bookmarklet</button>
+                <button id="clearItemsButton">Clear Custom Bookmarklets</button>
+            </div>
         </div>
     </div>
 
