@@ -34,29 +34,27 @@
             margin-right: 10px;
         }
 
-        #itemListText {
-            font-size: 18px;
-            font-family: 'Varela Round', sans-serif;
-        }
-
         #itemInputContainer {
             display: flex;
-            flex-direction: column; /* Stack items vertically */
-            align-items: stretch;   /* Stretch items to full width of container */
+            flex-direction: column;
+            align-items: stretch;  /* Stretch to full width */
             padding: 10px;
         }
 
-        #itemInputContainer > input { /* Style the input (placeholder) */
-            margin-bottom: 10px; /* Add space below the input */
+        #itemInputContainer > input {
+            margin-bottom: 10px;
         }
 
-        #itemInputContainer > div { /* Container for the buttons */
+        #itemInputContainer > div {  /* Button container */
             display: flex;
-            justify-content: space-between; /* Align buttons left and right */
+            justify-content: space-between;
         }
 
-        /* Media query – probably not needed now, but kept for example */
+        /* Media query (adjust as needed) */
         @media (max-width: 769px) {
+            #newItemInput {
+                text-align: right; /* Or keep it right – up to your design */
+            }
             /* You can remove these styles if you want the same behavior on small screens */
             #itemInputContainer > div { /* Button container on small screens */
                 flex-direction: column; /* Stack buttons vertically */
@@ -73,10 +71,10 @@
         }
 
         #newItemInput {
-            width: 100%;
+            width: 100%;  /* Takes full width of its parent */
             padding: 5px;
             border-radius: 5px;
-            margin-left: -600px;
+            text-align: right;  /* Align text to the right */
         }
 
         #clearItemsButton {  
