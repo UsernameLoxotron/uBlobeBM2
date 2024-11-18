@@ -41,15 +41,56 @@
 
         #itemInputContainer {
             display: flex;
-            flex-direction: column;
+            justify-content: space-between;
             align-items: center;
+            padding: 10px;
+        }
+
+        #itemInputContainer > button { /* Target only the buttons */
+            margin-right: 10px;
+        }
+
+        #itemInputContainer > button:last-child { /* Remove margin from last button */
+            margin-right: 0;
+        }
+
+        @media (max-width: 769px) {
+            #itemInputContainer {
+                flex-direction: column;
+                align-items: flex-start; 
+            }
+
+            #itemInputContainer > button { /* Target buttons in media query */
+                margin-right: 0;
+                margin-bottom: 5px;
+            }
+            #itemInputContainer > button:last-child { /* Remove bottom margin */
+            margin-bottom: 0;
+            }
+
+            #itemInputContainer > input { /* Target input in media query */
+                width: 100%; /* Input full width on small screens */
+                margin-bottom: 5px; /* Adjust bottom margin as needed */
+            }
+            #itemInputContainer > *:last-child {
+                margin-bottom: 0; /* Remove bottom margin from last element */
+            }
         }
 
         #newItemInput {
-            width: calc(100% + 590px);
+            width: 100%;
             padding: 5px;
             border-radius: 5px;
             margin-left: -600px;
+        }
+
+        #clearItemsButton {  
+            background-color: #770b16; 
+            color: white;
+            padding: 5px 10px;
+            border: none;
+            cursor: pointer;
+            margin-left: 10px; 
         }
 
 	    @media (max-width: 769px) {
@@ -83,7 +124,6 @@
             padding: 5px 10px;
             border: none;
             cursor: pointer;
-            align-items: center;
         }
 
         .remove-button {
@@ -135,6 +175,7 @@
         <div id="itemInputContainer">
             <input type="text" id="newItemInput" placeholder="Enter the bookmarklet here">
             <button id="addItemButton">Add Bookmarklet</button>
+            <button id="clearItemsButton">Reset Bookmarklets</button>
         </div>
     </div>
 
@@ -149,7 +190,9 @@
             const itemList = document.getElementById('itemList');
             const newItemInput = document.getElementById('newItemInput');
             const addButton = document.getElementById('addItemButton');
+            const clearItemsButton = document.getElementById('clearItemsButton');
             const overlay = document.getElementById('overlay');
+            
 
             function loadBookmarks() {
             const storedItems = localStorage.getItem('items');
@@ -263,10 +306,15 @@
                 newItemInput.value = '';
             });
 
+            clearItemsButton.addEventListener('click', () => {
+                if (confirm("Are you sure you want to clear ALL bookmarklets?")) {
+                    localStorage.removeItem('items');  
+                    location.reload(); 
+                }
+            });
 
             loadBookmarks();
         });
-
     </script>
 </body>
 </html>
