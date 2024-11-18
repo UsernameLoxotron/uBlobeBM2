@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BlobeBM2</title>
+    <title> </title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
 
@@ -45,14 +45,14 @@
             align-items: center;
         }
 
-	#newItemInput {
-   	    width: calc(100% + 590px);
-  	    padding: 5px;
-	    border-radius: 5px;
-	    margin-left: -600px;
-	}
+        #newItemInput {
+            width: calc(100% + 590px);
+            padding: 5px;
+            border-radius: 5px;
+            margin-left: -600px;
+        }
 
-	@media (max-width: 769px) {
+	    @media (max-width: 769px) {
     		#newItemInput {
         		width: auto;
         		margin-left: 0;
@@ -83,6 +83,7 @@
             padding: 5px 10px;
             border: none;
             cursor: pointer;
+            align-items: center;
         }
 
         .remove-button {
@@ -168,7 +169,6 @@
                             items.push({
                                 display: bookmarkName,
                                 item: data[bookmarkName].url,
-                                isRemovable: false 
                             });
                         }
                         localStorage.setItem('items', JSON.stringify(items));
