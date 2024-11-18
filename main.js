@@ -7,7 +7,7 @@ let blobFrame = null;
 let blobFrameContainer = null;
 
 document.addEventListener("keydown", function(blob) {
-    if (blob.key == "~" && blob.ctrlKey && !blobFrame) {
+    if (blob.key == "`" && blob.ctrlKey && !blobFrame) {
         if (blobFrame) {
             closeWithAnimation(blobFrameContainer);
             blobFrame = null;
