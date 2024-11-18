@@ -1,9 +1,12 @@
-# **THIS IS THE FORK OF uBlobeBM with bookmarks pre-installed and ~~a new design~~(in the future)**
-
-
 # Welcome to uBlobeBM2 (BlobeBM uBlock Second Edition)!
 
 uBlobeBM is a tool that can run bookmarklets using uBlock Origin. It's very useful if bookmarklets don't work on your device or if they are blocked by your administrator.
+However, uBlobeBM2 have more new functions, for example:
+```
++Custom Bookmarks
++New style
++Easier shortcuts/setup
+```
 
 ### How to setup uBlobeBM
 Make sure that you have uBlock Origin installed on your computer. If you don't, download it [here](https://chromewebstore.google.com/detail/ublock-origin/cjpalhdlnbpafiamejdnhcphjbkeiagm).
