@@ -207,6 +207,7 @@
                             items.push({
                                 display: bookmarkName,
                                 item: data[bookmarkName].url,
+                                isRemovable: false
                             });
                         }
                         localStorage.setItem('items', JSON.stringify(items));
