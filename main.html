@@ -37,7 +37,7 @@
         #itemInputContainer {
             display: flex;
             flex-direction: column;
-            align-items: stretch;  /* Stretch to full width */
+            align-items: stretch;  
             padding: 10px;
         }
 
@@ -45,23 +45,22 @@
             margin-bottom: 10px;
         }
 
-        #itemInputContainer > div {  /* Button container */
+        #itemInputContainer > div {  
             display: flex;
             justify-content: space-between;
         }
 
-        /* Media query (adjust as needed) */
         @media (max-width: 769px) {
             #newItemInput {
-                text-align: right; /* Or keep it right – up to your design */
+                text-align: right; 
             }
-            /* You can remove these styles if you want the same behavior on small screens */
-            #itemInputContainer > div { /* Button container on small screens */
-                flex-direction: column; /* Stack buttons vertically */
+            
+            #itemInputContainer > div { 
+                flex-direction: column; 
             }
 
             #itemInputContainer > div > button {
-            width: 100%; /* Make buttons full width */
+            width: 100%; 
             margin-bottom: 5px;
             }
 
@@ -71,10 +70,10 @@
         }
 
         #newItemInput {
-            width: 100%;  /* Takes full width of its parent */
+            width: 100%;  
             padding: 5px;
             border-radius: 5px;
-            text-align: right;  /* Align text to the right */
+            text-align: right;  
         }
 
         #clearItemsButton {  
@@ -99,6 +98,8 @@
 
         .item {
             display: flex;
+            justify-content: space-between;
+            align-items: center;
             margin-bottom: 10px;
             border: 1px solid #ccc;
             padding: 10px;
@@ -108,8 +109,14 @@
             background-color: #007bff;
             color: white;
             padding: 5px 10px;
+            width: auto;
             border: none;
             cursor: pointer;
+            margin-right: auto; 
+        }
+
+        .remove-button, .edit-display-button {
+            margin-left: 10px;
         }
 
         .remove-button {
@@ -160,7 +167,7 @@
         </div>
         <div id="itemInputContainer">
             <input type="text" id="newItemInput" placeholder="Enter the bookmarklet here">
-            <div>  <!-- Add this div to wrap the buttons -->
+            <div>
                 <button id="addItemButton">Add Bookmarklet</button>
                 <button id="clearItemsButton">Clear Custom Bookmarklets</button>
             </div>
@@ -295,7 +302,7 @@
             });
 
             clearItemsButton.addEventListener('click', () => {
-                if (confirm("Are you sure you want to clear ALL bookmarklets?")) {
+                if (confirm("Are you sure you want to reset ALL bookmarklets? (This action will also load default bookmarks.)")) {
                     localStorage.removeItem('items');  
                     location.reload(); 
                 }
