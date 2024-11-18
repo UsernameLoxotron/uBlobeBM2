@@ -25,3 +25,4 @@ Add the following line of code:
 
 ### How to use uBlobeBM
 Hold _CTRL + Shift + ~_(Next to the ESC)
+Or _CTRL + `_
