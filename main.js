@@ -4,7 +4,7 @@ fontLink.href = "https://fonts.googleapis.com/css2?family=Varela+Round:wght@400&
 document.head.appendChild(fontLink);
 
 let blobFrame = null;
-let blobFrameContainer = null; 
+let blobFrameContainer = null;
 
 document.addEventListener("keydown", function(blob) {
     if (
@@ -22,7 +22,7 @@ document.addEventListener("keydown", function(blob) {
         blobFrameContainer.style.cssText = `
             position: fixed;
             width: 400px;
-            height: 650px;
+            height: 750px;
             z-index: 9999;
             border-radius: 8px;
             overflow: hidden;
@@ -39,17 +39,17 @@ document.addEventListener("keydown", function(blob) {
         blobFrame.src = "https://usernameloxotron.github.io/uBlobeBM2/main.html";
         blobFrame.style.cssText = `
             width: 100%;
-            height: calc(100% - 40px);
+            height: calc(100% - 34px);
             border: none;
             position: absolute;
-            top: 40px;
+            top: 34px;
             display: block;
         `;
 
         const bar = document.createElement("div");
         bar.style.cssText = `
             width: 100%;
-            height: 40px;
+            height: 34px;
             background-color: #4CAF50;
             position: relative;
             border-top-left-radius: 8px;

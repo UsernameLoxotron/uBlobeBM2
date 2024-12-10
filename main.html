@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="csscsscss.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
@@ -12,11 +12,11 @@
 <body>
     <div class="header">
         <div id="logo-container">
-            <img id="logo" src="https://raw.githubusercontent.com/UsernameLoxotron/uBlobeBM2/refs/heads/main/silly.ico" alt="Logo">
+            <img id="logo" src="/silly.ico" alt="Logo">
             <span id="itemListText">BlobeBM2: Bookmarklet Runner</span>
         </div>
         <div id="itemInputContainer">
-            <input type="text" id="newItemInput" placeholder="Enter the bookmarklet here">
+            <input type="text" id="newItemInput" placeholder="Enter the bookmarklet code here">
             <div>
                 <button id="addItemButton">Add Bookmarklet</button>
                 <button id="clearItemsButton">Clear Custom Bookmarklets</button>
@@ -158,8 +158,31 @@
                     location.reload(); 
                 }
             });
-
             loadBookmarks();
+
+            
+            const logoImg = document.getElementById('logo');
+            const images = [
+                "https://freepngimg.com/download/anime/10-2-anime-png-images.png",
+                "/silly.ico",
+                "https://file.aiquickdraw.com/imgcompressed/img/compressed_66cd62172b6eeae806f4e7c6df92ec1c.webp",
+                "https://preview.redd.it/one-off-payment-character-sheet-pfp-anime-illustration-show-v0-1ra3p1g1cz5e1.png?width=640&crop=smart&auto=webp&s=3bf8346aef758b8666b655601564f1e2b23d5d6b",
+                "https://jdmperformance.net/cdn/shop/files/Car-Stickers-Jdm-Vinyl-Stickers-Anime-6.webp?v=1722528641",
+                "https://pbs.twimg.com/profile_images/1853726269793259520/_Drr0_Fm_400x400.png",
+                "https://i.redd.it/l4adxwv8lp2d1.png",
+                "https://avatarfiles.alphacoders.com/348/thumb-1920-348066.png"
+            ];
+
+            function changeLogoImage() {
+                const randomIndex = Math.floor(Math.random() * images.length);
+                logoImg.src = images[randomIndex];
+            }
+
+            //Initial change
+            changeLogoImage();
+
+            //Optional: Change image every 5 seconds
+            setInterval(changeLogoImage, 5000); 
         });
     </script>
 </body>
