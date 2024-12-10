@@ -21,8 +21,6 @@ document.addEventListener("keydown", function(blob) {
         blobFrameContainer = document.createElement("div");
         blobFrameContainer.style.cssText = `
             position: fixed;
-            width: 600px;
-            height: 400px;
             z-index: 9999;
             border-radius: 8px;
             overflow: hidden;
@@ -81,7 +79,7 @@ document.addEventListener("keydown", function(blob) {
         closeButton.addEventListener("click", closeIframe);
 
         const titleText = document.createElement("div");
-        titleText.innerText = "uBlobeBM";
+        titleText.innerText = "uBlobeBM2";
         titleText.style.cssText = `
             position: absolute;
             top: 50%;
@@ -210,7 +208,7 @@ function handleMessage(message) {
 }
 
 function closeWithAnimation(element) {
-    element.style.transition = "opacity 0.2s ease";
+    element.style.transition = "opacity 0.3s ease";
     element.style.opacity = "0";
 
     setTimeout(() => {
