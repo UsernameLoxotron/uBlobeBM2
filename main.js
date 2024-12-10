@@ -44,6 +44,23 @@ document.addEventListener("keydown", function(blob) {
             display: block;
         `;
 
+        blobFrame.onload = function() {
+            // Wait for the iframe content to load fully
+            setTimeout(() => {
+              const iframeContent = blobFrame.contentWindow.document.body;
+              const contentWidth = iframeContent.scrollWidth;
+              const contentHeight = iframeContent.scrollHeight;
+          
+              // Set the iframe's size based on its content
+              blobFrame.style.width = `${contentWidth}px`;
+              blobFrame.style.height = `${contentHeight}px`;
+          
+              // Adjust container size if needed (add padding)
+              blobFrameContainer.style.width = `${contentWidth + 20}px`;
+              blobFrameContainer.style.height = `${contentHeight + 20}px`;
+            }, 500); //Allow time for content to render completely. Adjust this value as needed.
+          };
+
         const bar = document.createElement("div");
         bar.style.cssText = `
             width: 100%;
