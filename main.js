@@ -4,7 +4,7 @@ fontLink.href = "https://fonts.googleapis.com/css2?family=Varela+Round:wght@400&
 document.head.appendChild(fontLink);
 
 let blobFrame = null;
-let blobFrameContainer = null;
+let blobFrameContainer = null; 
 
 document.addEventListener("keydown", function(blob) {
     if (
