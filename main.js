@@ -21,6 +21,8 @@ document.addEventListener("keydown", function(blob) {
         blobFrameContainer = document.createElement("div");
         blobFrameContainer.style.cssText = `
             position: fixed;
+            width: 600px;
+            height: 400px;
             z-index: 9999;
             border-radius: 8px;
             overflow: hidden;

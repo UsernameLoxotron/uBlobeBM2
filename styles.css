@@ -28,17 +28,12 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 0;
-    padding: 0;
   }
   
   .container {
+    max-width: 800px;
     margin: 8px;
     padding: 0;
-    display: flex; /* Enable flexbox layout */
-    flex-direction: column; /* Arrange items vertically (adjust as needed) */
-    min-height: 100vh; /* Occupy the full viewport height */
-    box-sizing: border-box; /* Include padding and border in element's total width and height */
   }
   
   header {
