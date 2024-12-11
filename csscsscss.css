@@ -22,7 +22,7 @@
   }
   
   body {
-    background-color: var(--background);
+    background: linear-gradient(to bottom, #222, #181818); /* Subtle gradient */
     color: var(--foreground);
     line-height: 1.6;
     display: flex;
@@ -34,26 +34,49 @@
     max-width: 800px;
     margin: 8px;
     padding: 0;
+    background-color: #282a36; /* A little darker */
+    border: 1px solid rgba(120,120,120,0.3); /* add light border*/
+    padding: 20px;
+    border-radius: 10px; /*rounded edges for appeal*/
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
   }
   
   header {
     background-color: var(--current-line);
     border-radius: 10px;
-    padding: 10px;
+    padding: 20px;
     margin-bottom: 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
+
+  #itemListText {
+    font-size: 1.2rem; /* Slightly larger font size */
+    font-weight: 600; /* Bolder text */
+  }
   
+  button {
+    border-radius: 8px; /* More rounded corners */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    padding: 8px 15px; /* More padding */
+  }
+
+  .item {
+    margin-bottom: 15px; /* Added more margin */
+  }
+
   #logo-container {
     display: flex;
     align-items: center;
+    gap: 15px;
   }
   
   #logo {
-    width: 40px; /* Or any desired size */
+    width: 40px;
     height: 40px;
+    transition: opacity 0.5s ease;
+    opacity: 1;
     margin-right: 10px;
     object-fit: cover;
   }
@@ -66,6 +89,7 @@
     padding: 10px;
     background-color: var(--background);
     border-radius: 5px;
+    gap: 10px;
   }
   
   #itemInputContainer > input {
@@ -137,7 +161,7 @@
   .item-list {
     list-style: none;
     margin: 0;
-    padding: 0;
+    padding: 10px 0;
   }
   
   .item {
@@ -146,7 +170,7 @@
     align-items: center;
     margin-bottom: 10px;
     border: 1px solid var(--comment);
-    padding: 10px;
+    padding: 15px;
     background-color: var(--background);
     border-radius: 5px;
   }
@@ -157,12 +181,28 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(255, 255, 255, 0.8);
     display: none;
     justify-content: center;
     align-items: center;
-    z-index: 999;
-}
+    z-index: 999; /*Increased z-index to ensure it goes over everything else */
+    background: rgba(0,0,0, 0.7);  /*Dark background*/
+    backdrop-filter: blur(4px);
+  }
+
+  .overlay > div {
+    padding: 30px;                
+    background-color: #333; /* Dark grey background for the modal content */
+    color: white;                /* White text for readability */
+    border-radius: 10px;            
+    max-width: 80%;              
+    box-shadow: 0 0 10px rgba(0,0,0,0.4); /* Add shadow to pop out more */
+    text-align: left;  
+    z-index: 1000;
+  }
+  .overlay > div h3 {
+    font-weight: 600;                  /* give more visual impact */
+    margin-bottom: 10px;                /* some separation before text */
+  }
   
   
   @media (max-width: 769px) {
