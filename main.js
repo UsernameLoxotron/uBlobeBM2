@@ -158,54 +158,19 @@ function handleMessage(message) {
         closeWithAnimation(blobFrameContainer);
         blobFrame = null;
 
-        setTimeout(() => {
-            try {
-                eval(decodeURIComponent(message.data.toString().replace("run:", "")));
-            } catch (error) {
-            let messageData = message.data.toString().replace("run:", "");
-            const replacements = {
-                '%20': ' ',
-                '%21': '!',
-                '%22': '"',
-                '%23': '#',
-                '%24': '$',
-                '%25': '%',
-                '%26': '&',
-                '%27': "'",
-                '%28': '(',
-                '%29': ')',
-                '%2C': ',',
-                '%2E': '.',
-                '%2F': '/',
-                '%3A': ':',
-                '%3B': ';',
-                '%3C': '<',
-                '%3D': '=',
-                '%3E': '>',
-                '%3F': '?',
-                '%40': '@',
-                '%5B': '[',
-                '%5D': ']',
-                '%5E': '^',
-                '%60': '`',
-                '%7B': '{',
-                '%7C': '|',
-                '%7D': '}',
-                '%7E': '~',
-            };
-
-            for (const [encoded, decoded] of Object.entries(replacements)) {
-                messageData = messageData.replace(new RegExp(encoded, 'g'), decoded);
-            }
+        setTimeout(() => {  // Keep the setTimeout for correct execution timing
 
             try {
-                eval(messageData);
+                let bookmarkletCode = message.data.toString().replace("run:", "");
+                let decodedCode = decodeURIComponent(bookmarkletCode);
+                eval(decodedCode); 
+
             } catch (error) {
-                    console.error('Error executing bookmarklet:', error.message);
-                    alert('An error occured while executing the bookmarklet. Try double checking the code of the bookmarklet. Error: ' + error.message);
-              }
-           }
-        }, 200);
+                console.error('Error executing bookmarklet:', error);
+                alert('An error occurred while executing the bookmarklet. Check the code for errors.\nError details: ' + error.message);
+            } 
+
+        }, 200);  // Keep the delay
     }
 }
 
