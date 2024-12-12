@@ -50,7 +50,7 @@ document.addEventListener("keydown", function(blob) {
         bar.style.cssText = `
             width: 100%;
             height: 34px;
-            background-color: #164a18;
+            background-color:rgb(40, 143, 44);
             position: relative;
             border-top-left-radius: 8px;
             border-top-right-radius: 8px;
