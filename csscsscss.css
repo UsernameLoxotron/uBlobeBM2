@@ -235,8 +235,8 @@
     margin-top: 10px;
     border: 1.5px solid #4255be; /* Added border */
     padding: 12px; /* Increased padding for better border visibility */
-    max-height: 350px; 
-    max-width: 400px;
+    max-height: 420px; 
+    max-width: 390px;
     overflow-y: auto;  /* Enable vertical scrollbar if content exceeds max-height */
   }
   
