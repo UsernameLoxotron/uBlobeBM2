@@ -22,7 +22,7 @@ document.addEventListener("keydown", function(blob) {
         blobFrameContainer.style.cssText = `
             position: fixed;
             width: 400px;
-            height: 750px;
+            height: 650px;
             z-index: 9999;
             border-radius: 8px;
             overflow: hidden;
@@ -50,7 +50,7 @@ document.addEventListener("keydown", function(blob) {
         bar.style.cssText = `
             width: 100%;
             height: 34px;
-            background-color:rgb(40, 143, 44);
+            background-color: #4255be;
             position: relative;
             border-top-left-radius: 8px;
             border-top-right-radius: 8px;
@@ -158,7 +158,7 @@ function handleMessage(message) {
         closeWithAnimation(blobFrameContainer);
         blobFrame = null;
 
-        setTimeout(() => {  // Keep the setTimeout for correct execution timing
+        setTimeout(() => {  
 
             try {
                 let bookmarkletCode = message.data.toString().replace("run:", "");
@@ -170,7 +170,7 @@ function handleMessage(message) {
                 alert('An error occurred while executing the bookmarklet. Check the code for errors.\nError details: ' + error.message);
             } 
 
-        }, 200);  // Keep the delay
+        }, 200); 
     }
 }
 

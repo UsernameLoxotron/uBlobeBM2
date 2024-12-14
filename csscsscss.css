@@ -22,12 +22,91 @@
   }
   
   body {
-    background: linear-gradient(to bottom, #222, #181818); /* Subtle gradient */
+    background: var(--current-line); /* Subtle gradient */
     color: var(--foreground);
     line-height: 1.6;
     display: flex;
     flex-direction: column;
     align-items: center;
+    overflow: hidden;
+  }
+
+  .loader-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--background); /* Match your background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 1000;
+  } 
+
+
+
+  /* HTML: <div class="loader"></div> */
+  .loader {
+    width: 40px;
+    height: 20px;
+    --c:no-repeat radial-gradient(farthest-side,#ffffff 93%,#ffffff00);
+    background:
+      var(--c) 0    0,
+      var(--c) 50%  0,
+      var(--c) 100% 0;
+    background-size: 8px 8px;
+    position: relative;
+    animation: l4-0 1s linear infinite alternate;
+  }
+  .loader:before {
+    content: "";
+    position: absolute;
+    width: 8px;
+    height: 12px;
+    background: #ffffff;
+    left: 0;
+    top: 0;
+    animation: 
+      l4-1 1s  linear infinite alternate,
+      l4-2 0.5s cubic-bezier(0,200,.8,200) infinite;
+  }
+  @keyframes l4-0 {
+    0%      {background-position: 0  100%,50% 0   ,100% 0}
+    8%,42%  {background-position: 0  0   ,50% 0   ,100% 0}
+    50%     {background-position: 0  0   ,50% 100%,100% 0}
+    58%,92% {background-position: 0  0   ,50% 0   ,100% 0}
+    100%    {background-position: 0  0   ,50% 0   ,100% 100%}
+  }
+  @keyframes l4-1 {
+    100% {left:calc(100% - 8px)}
+  }
+  @keyframes l4-2 {
+    100% {top:-0.1px}
+  }
+
+
+
+  .loading-text {
+    color: var(--foreground); /* Use your foreground color */
+    font-family: 'Poppins', sans-serif; /* Match your font */
+    font-size: 1rem; /* Adjust font size as needed */
+    margin-top: 10px; /* Add some spacing between loader and text */
+    display:block; /* Force it to be a block element, taking full width */
+    text-align: center; /* Center the text */
+  }
+
+  .anim-element {
+    opacity: 0;
+    transform: translateY(-30px); /* Adjust offset as needed */
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+
+  
+  .show {
+    opacity: 1;
+    transform: translateY(0);
   }
   
   .container {
@@ -62,10 +141,6 @@
     padding: 8px 15px; /* More padding */
   }
 
-  .item {
-    margin-bottom: 15px; /* Added more margin */
-  }
-
   #logo-container {
     display: flex;
     align-items: center;
@@ -86,10 +161,12 @@
     display: flex;
     flex-direction: column;
     align-items: stretch;
-    padding: 10px;
     background-color: var(--background);
     border-radius: 5px;
     gap: 10px;
+    margin-bottom: px;
+    border: 2px solid #4255be; /* Added border */
+    padding: 10px;
   }
   
   #itemInputContainer > input {
@@ -121,7 +198,7 @@
   #clearItemsButton, #addItemButton, .item-button, .remove-button, .edit-display-button {
     background-color: var(--button-bg);
     color: var(--foreground);
-    padding: 5px 10px;
+    padding: 4px 10.5px;
     border: none;
     cursor: pointer;
     border-radius: 5px;
@@ -155,13 +232,18 @@
     overflow-y: auto;
     background-color: var(--background);
     border-radius: 5px;
-    padding: 10px;
+    margin-top: 10px;
+    border: 1.5px solid #4255be; /* Added border */
+    padding: 12px; /* Increased padding for better border visibility */
+    max-height: 350px; 
+    max-width: 400px;
+    overflow-y: auto;  /* Enable vertical scrollbar if content exceeds max-height */
   }
   
   .item-list {
     list-style: none;
     margin: 0;
-    padding: 10px 0;
+    padding: 5px 0;
   }
   
   .item {
@@ -187,6 +269,13 @@
     z-index: 999; /*Increased z-index to ensure it goes over everything else */
     background: rgba(0,0,0, 0.7);  /*Dark background*/
     backdrop-filter: blur(4px);
+    transition: opacity 0.5s ease-in; /* Transition for opacity */
+    pointer-events: none; /* Prevent interaction while fading */
+  }
+
+  .overlay.show { /* Add a class to make it visible */
+    opacity: 1;
+    pointer-events: auto; /* Allow interaction once visible */
   }
 
   .overlay > div {
@@ -222,3 +311,33 @@
   }
 
 
+  .item-list-container::-webkit-scrollbar {
+    width: 8px; /* Adjust this value to control thickness */
+  }
+
+  .item-list-container::-webkit-scrollbar-track {
+      background: transparent; /* Customize track background color */
+  }
+
+  .item-list-container::-webkit-scrollbar-thumb {
+      background-color: black !important;
+      border-radius: 4px !important;
+  }
+
+  /* For Firefox */
+  .item-list-container {
+    scrollbar-width: thin; /* Adjust to 'auto', 'thin', or 'none' */
+  }
+
+  .item-list-container::-moz-scrollbar {
+      width: 8px; /* Adjust as needed */
+  }
+
+  .item-list-container::-moz-scrollbar-track {
+    background: transparent; /* Adjust as needed */
+  }
+
+  .item-list-container::-moz-scrollbar-thumb {
+    background-color: black; /* Changed to black */
+    border-radius: 4px; /* Optional */
+  }
